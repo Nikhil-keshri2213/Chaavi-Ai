@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAAVI AI - Advanced Image Authentication</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+    <!-- Particles -->
+    <div id="particles"></div>
+    <!-- Hexagon Background -->
+    <svg class="hexagon-container" xmlns="http://www.w3.org/2000/svg">
+        <!-- SVG hexagons will be added by JavaScript -->
+    </svg>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="logo">
+            <h1>CHAAVI AI</h1>
+            <p>Reveal the unseen Truth!</p>
+        </div>
+        <nav>
+            <div class="nav-links">
+                <a href="#slider" class="nav-btn">Scan</a>
+                <a href="#features" class="nav-btn">Features</a>
+                <a href="#how-to-use" class="nav-btn">How to Use</a>
+                <a href="#about" class="nav-btn">About Us</a>
+            </div>
+            <div class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay and Menu -->
+    <div class="menu-overlay"></div>
+    <div class="mobile-menu">
+        <a href="#slider" class="nav-btn">Scan</a>
+        <a href="#features" class="nav-btn">Features</a>
+        <a href="#how-to-use" class="nav-btn">How to Use</a>
+        <a href="#about" class="nav-btn">About Us</a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                CHAAVI
+                <span class="ai-badge">AI</span>
+            </h1>
+            <div class="hero-tagline">
+                <span class="quote">Satyam Param Dhimahi</span> "We uphold truth as supreme"
+            </div>
+        </div>
+    </div>
+
+    <div id="container-text"></div>
+
+    <div id="slider">
+        <i class="ri-arrow-down-wide-fill"></i>
+        <i class="ri-arrow-down-wide-fill"></i>
+        <i class="ri-arrow-down-wide-fill"></i>
+    </div>
+
+    <!-- Upload Section -->
+    <div id="main-ele" class="scroll-reveal">
+        <div class="upload-box" id="upload-box">
+            <i class="ri-upload-cloud-line"></i>
+            <label for="file-input" class="file-label">
+                <i class="ri-folders-line"></i> CHOOSE FILE
+            </label>
+            <input type="file" id="file-input" accept="image/jpeg, image/png, image/tiff" hidden>
+            <p class="drop-text">Only JPG, PNG, and TIFF formats supported</p>
+        </div>
+
+        <img id="image-preview" src="" alt="Preview">
+
+        <div class="scan-button-container" id="scan-container">
+            <button id="scan-button">
+                <i class="ri-scan-line"></i> Scan Image
+            </button>
+            <div class="progress-container" id="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Output Section -->
+    <!-- <div id="output-ele" class="scroll-reveal">
+        <h2>Analysis Report</h2>
+        <div class="grid">
+            <div>
+                <h4 style="margin-bottom: 15px; color: #4ade80;">ELA Visualization</h4>
+                <img id="output-image" src="" alt="ELA Image">
+            </div>
+            <div id="img-details">
+                <h4 style="margin-bottom: 15px; color: #4ade80;">Image Details</h4>
+                <p id="image-details">No details available</p>
+            </div>
+            <div id="result-container">
+                <h3>Result: <span id="result-text">Pending</span></h3>
+                <p>Accuracy: <span id="accuracy">--</span></p>
+                <p>Confidence: <span id="confidence">--</span></p>
+
+                <div id="model-details">
+                    <h4 style="margin-bottom: 15px; color: #4ade80;">Model Metrics</h4>
+                    <p>Train Accuracy <span id="train-accuracy">--</span></p>
+                    <p>Validation Accuracy <span id="val-accuracy">--</span></p>
+                    <p>Train Loss <span id="train-loss">--</span></p>
+                    <p>Validation Loss <span id="val-loss">--</span></p>
+                </div>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 15px; color: #4ade80;">Pixel Intensity Distribution</h4>
+                <canvas id="graph"></canvas>
+            </div>
+        </div>
+    </div> -->
+
+    <div id="output-ele" class="scroll-reveal">
+        <h2>Analysis Report</h2>
+        <div class="grid">
+            
+            <div class="ela-container">
+                <h4 style="margin-bottom: 15px; color: #4ade80;">ELA Visualization</h4>
+                <img id="output-image" src="" alt="ELA Image">
+            </div>
+
+            <div id="result-container">
+                <h4 style="margin-bottom: 15px; color: #4ade80;">Scan Results</h4>
+                <h3>Result: <span id="result-text">Pending</span></h3>
+                <p>Accuracy: <span id="accuracy">--</span></p>
+                <p>Confidence: <span id="confidence">--</span></p>
+                
+                <div id="img-details" style="margin-top: 20px; border-top: 1px solid rgba(74, 222, 128, 0.2); padding-top: 15px;">
+                    <h5 style="margin-bottom: 10px; color: #fff;">File Info</h5>
+                    <p id="image-details">No details available</p>
+                </div>
+            </div>
+
+            <div>
+                <h4 style="margin-bottom: 15px; color: #4ade80;">Pixel Intensity Distribution</h4>
+                <canvas id="graph"></canvas>
+            </div>
+
+            <div id="model-metrics-card">
+                <h4 style="margin-bottom: 15px; color: #4ade80;">Model Metrics</h4>
+                <div id="model-details">
+                    <p>Train Accuracy <span id="train-accuracy">--</span></p>
+                    <p>Validation Accuracy <span id="val-accuracy">--</span></p>
+                    <p>Train Loss <span id="train-loss">--</span></p>
+                    <p>Validation Loss <span id="val-loss">--</span></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section id="features" class="section scroll-reveal">
+        <h2 class="section-title">FEATURES</h2>
+        <p class="section-subtitle">Cutting-edge AI technology for image authentication</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="ri-brain-line feature-icon"></i>
+                <h3 class="feature-title">AI-Powered Detection</h3>
+                <p class="feature-description">Advanced deep learning algorithms analyze images at the pixel level to
+                    detect even the most sophisticated manipulations and forgeries.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="ri-shield-check-line feature-icon"></i>
+                <h3 class="feature-title">High Accuracy</h3>
+                <p class="feature-description">Our model achieves 95%+ accuracy with comprehensive training on diverse
+                    datasets, ensuring reliable and trustworthy results.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="ri-flashlight-line feature-icon"></i>
+                <h3 class="feature-title">ELA Visualization</h3>
+                <p class="feature-description">Error Level Analysis provides visual representation of compression
+                    artifacts, highlighting potential areas of manipulation.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="ri-dashboard-line feature-icon"></i>
+                <h3 class="feature-title">Detailed Analytics</h3>
+                <p class="feature-description">Comprehensive reports including pixel intensity distribution, confidence
+                    scores, and model performance metrics.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="ri-time-line feature-icon"></i>
+                <h3 class="feature-title">Real-Time Processing</h3>
+                <p class="feature-description">Fast and efficient analysis delivers results in seconds, perfect for
+                    quick verification and batch processing.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="ri-file-list-3-line feature-icon"></i>
+                <h3 class="feature-title">Multiple Formats</h3>
+                <p class="feature-description">Support for JPG, PNG, and TIFF formats ensures compatibility with various
+                    image sources and use cases.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use Section -->
+    <section id="how-to-use" class="section scroll-reveal">
+        <h2 class="section-title">HOW TO USE</h2>
+        <p class="section-subtitle">Simple steps to verify image authenticity</p>
+
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3 class="step-title">Upload Your Image</h3>
+                    <p class="step-description">Click the "Choose File" button or drag and drop your image into the
+                        upload area. We support JPG, PNG, and TIFF formats for maximum compatibility.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3 class="step-title">Preview & Confirm</h3>
+                    <p class="step-description">Review your uploaded image in the preview window. Make sure it's the
+                        correct file before proceeding to analysis.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3 class="step-title">Scan the Image</h3>
+                    <p class="step-description">Click the "Scan Image" button to initiate the AI-powered analysis. Our
+                        advanced algorithms will process your image in real-time.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3 class="step-title">Review Results</h3>
+                    <p class="step-description">Examine the comprehensive analysis report including authenticity
+                        verdict, ELA visualization, pixel distribution graph, confidence scores, and detailed image
+                        metadata.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="section scroll-reveal">
+        <h2 class="section-title">ABOUT US</h2>
+        <p class="section-subtitle">Pioneering truth in the digital age</p>
+
+        <div class="about-content">
+            <div class="about-text">
+                <p>
+                    <strong>CHAAVI AI</strong> is at the forefront of digital image authentication technology. In an era
+                    where image manipulation has become increasingly sophisticated, we provide the tools needed to
+                    distinguish truth from deception.
+                </p>
+                <p>
+                    Our mission is rooted in the principle <em>"Satyam Param Dhimahi"</em> - We uphold truth as supreme.
+                    We believe that access to reliable image verification should be available to everyone, from
+                    journalists and researchers to everyday users.
+                </p>
+                <p>
+                    Built on cutting-edge deep learning technology and trained on extensive datasets, CHAAVI AI combines
+                    Error Level Analysis with advanced neural networks to deliver industry-leading accuracy in forgery
+                    detection.
+                </p>
+            </div>
+
+            <div class="about-stats">
+                <div class="stat-card">
+                    <div class="stat-number">90%+</div>
+                    <div class="stat-label">Accuracy</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Images Analyzed</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Availability</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Secure</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>CHAAVI AI</h3>
+                <p>Advanced AI-powered image authentication technology. Upholding truth as supreme in the digital age.
+                </p>
+                <p><em>"Satyam Param Dhimahi"</em> - We uphold truth as supreme</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/nikhil-keshri2213/" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+                    <a href="https://github.com/Nikhil-keshri2213" aria-label="GitHub"><i class="ri-github-fill"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-to-use">How to Use</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#slider">Upload Image</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API Reference</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="https://nikhil-keshri2213.github.io/MyPortfolio/">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 CHAAVI AI. All rights reserved.</p>
+            <p>Developed with <i class="ri-heart-fill" style="color: #4ade80;"></i> for a truthful digital world</p>
+            <p>Developed for Humanity <i class="ri-heart-fill" style="color: #ff0000;"></i></p>
+            <p>Developed by Nikhil Keshri</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <i class="ri-arrow-up-line"></i>
+    </div>
+
+    <script src="../static/script.js"></script>
+</body>
+
+</html>

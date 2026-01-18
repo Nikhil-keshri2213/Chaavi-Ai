@@ -1,0 +1,7 @@
+numpy
+pillow
+matplotlib
+scikit-image
+tensorflow
+flask
+opencv-python-headless

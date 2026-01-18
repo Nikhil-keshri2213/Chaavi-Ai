@@ -1,0 +1,35 @@
+# ===== Python =====
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ===== Virtual Environment =====
+venv/
+.env/
+
+# ===== Jupyter Notebooks =====
+# notebook/
+# *.ipynb
+# .ipynb_checkpoints/
+
+# ===== Datasets (VERY IMPORTANT) =====
+CASIA2/
+CASIA2.zip
+
+# ===== Reports / Generated Outputs =====
+output reports/
+models/reports/
+*.json
+
+# ===== OS / Editor =====
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ===== Logs =====
+*.log
+
+# ===== Docker =====
+*.tar
