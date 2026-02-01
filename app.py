@@ -17,7 +17,7 @@ from PIL import Image, ImageChops, ImageEnhance
 # --- Configuration ---
 app = Flask(__name__)
 # Update this to match your actual model file name
-MODEL_PATH = 'models/mobilenet_forgery_model.h5' 
+MODEL_PATH = 'models/mobilenet_forgery_model_v2.0.h5' #updating model
 
 # Load Model Once
 print(" * Loading Keras model...")
